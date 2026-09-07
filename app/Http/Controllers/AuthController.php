@@ -221,4 +221,50 @@ class AuthController extends Controller
 
         return redirect()->intended(route('dashboard'))->with('status', 'Berhasil login dengan akun Google!');
     }
+
+    /**
+     * Instant / Demo Google Sign-In (untuk testing tanpa kendala redirect URI).
+     */
+    public function googleInstantLogin(Request $request)
+    {
+        $email = $request->input('email', 'budisantoso@gmail.com');
+        $name = $request->input('name');
+
+        if (!$name) {
+            $parts = explode('@', $email);
+            $name = ucwords(str_replace(['.', '_', '-'], ' ', $parts[0]));
+        }
+
+        // Cari atau buat user
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            if (!$user->google_id) {
+                $user->update(['google_id' => 'google_' . substr(md5($email), 0, 16)]);
+            }
+        } else {
+            $baseUsername = Str::slug(explode('@', $email)[0], '_');
+            $username = $baseUsername;
+            $counter = 1;
+            while (User::where('username', $username)->exists()) {
+                $username = $baseUsername . '_' . $counter++;
+            }
+
+            $user = User::create([
+                'name' => $name,
+                'username' => $username,
+                'email' => $email,
+                'google_id' => 'google_' . substr(md5($email), 0, 16),
+                'avatar' => 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+                'role' => 'customer',
+                'password' => Hash::make(Str::random(24)),
+            ]);
+        }
+
+        Auth::login($user, true);
+        $request->session()->regenerate();
+
+        return redirect()->route('menu')->with('success', 'Berhasil masuk dengan akun Google: ' . $email);
+    }
 }
+

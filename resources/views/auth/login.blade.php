@@ -383,22 +383,289 @@
             flex-shrink: 0;
         }
 
-        /* ── RESPONSIVE ── */
+        /* ── GOOGLE SIGN-IN MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.22s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 390px;
+            border-radius: 24px;
+            padding: 28px 24px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            transform: translateY(16px) scale(0.96);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+        }
+        .modal-overlay.active .modal-box {
+            transform: translateY(0) scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #f3f4f6;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+        .modal-close-btn:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+        .google-icon-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+        }
+        .account-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1.2px solid #e5e7eb;
+            border-radius: 14px;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 10px;
+            text-align: left;
+            transition: all 0.15s ease;
+            background: #ffffff;
+        }
+        .account-card:hover {
+            border-color: #f59e0b;
+            background: #fffbeb;
+            transform: translateY(-1px);
+        }
+        .account-card img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .account-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #111827;
+            line-height: 1.2;
+        }
+        .account-email {
+            font-size: 11.5px;
+            color: #6b7280;
+        }
+        .custom-google-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .custom-google-input {
+            flex: 1;
+            height: 40px;
+            background: #f9fafb;
+            border: 1.2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 0 12px;
+            font-size: 12.5px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .custom-google-input:focus {
+            border-color: #f59e0b;
+            background: #ffffff;
+        }
+        .custom-google-btn {
+            height: 40px;
+            background: #111827;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 0 16px;
+            font-size: 12.5px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .custom-google-btn:hover {
+            background: #000000;
+        }
+
+        /* ── RESPONSIVE: TABLET ── */
         @media (max-width: 900px) {
             html, body {
                 height: auto;
                 max-height: none;
                 overflow-y: auto;
+                overflow-x: hidden;
             }
+            body { flex-direction: column; }
+
             .panel-right { display: none; }
-            .panel-left  {
+
+            .panel-left {
                 width: 100%;
                 height: auto;
                 min-height: 100vh;
                 max-height: none;
-                padding: 32px 28px;
+                overflow: visible;
+                overflow-y: visible;
+                padding: 40px 32px;
+                justify-content: flex-start;
+                padding-top: 48px;
             }
-            .form-area { max-width: 100%; margin-top: 0; }
+
+            .logo-wrap { margin-bottom: 28px; }
+            .logo-wrap img { height: 60px; }
+            .form-area { max-width: 480px; margin: 0 auto; }
+            .form-area h1 { font-size: 30px; }
+        }
+
+        /* ── RESPONSIVE: MOBILE ── */
+        @media (max-width: 480px) {
+            html, body {
+                height: auto;
+                max-height: none;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            body {
+                flex-direction: column;
+                width: 100%;
+                min-height: 100vh;
+            }
+
+            .panel-right {
+                display: flex;
+                width: 100%;
+                height: 180px;
+                max-height: 180px;
+                order: -1;
+                border-radius: 0 0 24px 24px;
+                flex-shrink: 0;
+            }
+
+            .panel-right img.bg-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center 30%;
+            }
+
+            .panel-left {
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                max-height: none;
+                overflow: visible;
+                overflow-y: visible;
+                padding: 28px 24px 40px;
+                justify-content: flex-start;
+                order: 1;
+            }
+
+            .logo-wrap {
+                margin-bottom: 18px;
+                margin-top: 0;
+                text-align: center;
+            }
+            .logo-wrap img {
+                height: 52px;
+                margin: 0 auto;
+            }
+
+            .form-area {
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+            }
+
+            .form-area h1 {
+                font-size: 26px;
+                text-align: center;
+                margin-bottom: 4px;
+            }
+
+            .form-area p.subtitle {
+                font-size: 13px;
+                text-align: center;
+                margin-bottom: 18px;
+            }
+
+            label.field-label { font-size: 13px; }
+
+            .input-wrap { margin-bottom: 12px; }
+            .input-wrap input {
+                height: 46px;
+                font-size: 14px;
+                border-radius: 10px;
+            }
+
+            .row-check {
+                margin-top: 0;
+                margin-bottom: 14px;
+            }
+
+            .btn-primary {
+                height: 50px;
+                font-size: 15px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+            }
+
+            .divider {
+                margin: 4px 0 12px;
+                font-size: 12px;
+            }
+
+            .btn-google {
+                height: 48px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+                font-size: 13.5px;
+            }
+
+            .switch-line { font-size: 13px; text-align: center; }
+
+            .alert-error, .alert-success {
+                font-size: 12px;
+                padding: 10px 12px;
+                margin-bottom: 14px;
+            }
         }
     </style>
 </head>
@@ -520,7 +787,7 @@
                 <div class="divider">Or continue with</div>
 
                 <!-- Google Login -->
-                <a href="{{ route('auth.google') }}" class="btn-google" id="btn-google-login">
+                <a href="{{ route('auth.google') }}" class="btn-google" id="btn-google-login" onclick="openGoogleModal(event)">
                     <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" fill="#FFC107"/>
                         <path d="M6.306,14.691l6.571,4.819C14.655,15.108,19.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" fill="#FF3D00"/>
@@ -606,7 +873,7 @@
                 <div class="divider">Or continue with</div>
 
                 <!-- Google Register -->
-                <a href="{{ route('auth.google') }}" class="btn-google" id="btn-google-register">
+                <a href="{{ route('auth.google') }}" class="btn-google" id="btn-google-register" onclick="openGoogleModal(event)">
                     <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" fill="#FFC107"/>
                         <path d="M6.306,14.691l6.571,4.819C14.655,15.108,19.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" fill="#FF3D00"/>
@@ -629,7 +896,72 @@
         <img class="bg-image" src="{{ asset('images/burger-bg.jpg') }}" alt="Crispy burger with cheese sauce">
     </div>
 
+    <!-- ══════════════ GOOGLE SIGN-IN MODAL ══════════════ -->
+    <div id="google-modal-overlay" class="modal-overlay" onclick="handleOverlayClick(event)">
+        <div class="modal-box">
+            <button type="button" class="modal-close-btn" onclick="closeGoogleModal()">&times;</button>
+            
+            <div class="google-icon-circle">
+                <svg width="28" height="28" viewBox="0 0 48 48">
+                    <path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" fill="#FFC107"/>
+                    <path d="M6.306,14.691l6.571,4.819C14.655,15.108,19.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" fill="#FF3D00"/>
+                    <path d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" fill="#4CAF50"/>
+                    <path d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" fill="#1976D2"/>
+                </svg>
+            </div>
+
+            <h3 style="font-size:18px; font-weight:700; color:#111827; margin-bottom:4px;">Masuk dengan Google</h3>
+            <p style="font-size:12px; color:#6b7280; margin-bottom:18px;">Pilih cara masuk yang Anda inginkan:</p>
+
+            <!-- Option 1: 1-Tap Fast Login -->
+            <a href="{{ route('auth.google.instant', ['email' => 'budisantoso@gmail.com', 'name' => 'Budi Santoso']) }}" class="account-card">
+                <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=4285F4&color=fff" alt="Avatar">
+                <div style="flex:1; min-width:0;">
+                    <div class="account-name">Budi Santoso</div>
+                    <div class="account-email">budisantoso@gmail.com</div>
+                </div>
+                <span style="font-size:12px; font-weight:700; color:#f59e0b;">1-Tap &rarr;</span>
+            </a>
+
+            <!-- Option 2: Custom Gmail input -->
+            <form action="{{ route('auth.google.instant') }}" method="GET" class="custom-google-form" style="margin-bottom:14px;">
+                <input type="email" name="email" class="custom-google-input" placeholder="Ketik email Gmail Anda..." required>
+                <button type="submit" class="custom-google-btn">Masuk</button>
+            </form>
+
+            <div class="divider" style="margin:10px 0 14px; font-size:11px;">atau login resmi Google</div>
+
+            <!-- Option 3: Official Google OAuth -->
+            <a href="{{ route('auth.google') }}" class="btn-google" style="margin-bottom:0; font-weight:600; border-color:#d1d5db; height:42px; font-size:13px;">
+                <svg width="16" height="16" viewBox="0 0 48 48">
+                    <path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" fill="#FFC107"/>
+                    <path d="M6.306,14.691l6.571,4.819C14.655,15.108,19.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" fill="#FF3D00"/>
+                    <path d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" fill="#4CAF50"/>
+                    <path d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" fill="#1976D2"/>
+                </svg>
+                <span>Buka Akun Google Resmi</span>
+            </a>
+        </div>
+    </div>
+
     <script>
+        function openGoogleModal(e) {
+            if (e) e.preventDefault();
+            const modal = document.getElementById('google-modal-overlay');
+            if (modal) modal.classList.add('active');
+        }
+
+        function closeGoogleModal() {
+            const modal = document.getElementById('google-modal-overlay');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function handleOverlayClick(e) {
+            if (e.target.id === 'google-modal-overlay') {
+                closeGoogleModal();
+            }
+        }
+
         function switchForm(mode) {
             const loginSec = document.getElementById('login-section');
             const regSec   = document.getElementById('register-section');
