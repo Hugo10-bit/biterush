@@ -64,14 +64,23 @@
             width: 50%;
             height: 100vh;
             max-height: 100vh;
-            overflow-y: auto;
+            overflow: hidden;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             background: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 48px;
+            padding: 24px 48px;
             box-sizing: border-box;
+        }
+
+        .panel-left::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
         }
 
         /* ── RIGHT PANEL (IMAGE SIDE) ── */
@@ -100,12 +109,12 @@
         .logo-wrap {
             width: 100%;
             max-width: 440px;
-            margin-bottom: 36px;
-            margin-top: -10px;
+            margin-bottom: 20px;
+            margin-top: 0;
         }
 
         .logo-wrap img {
-            height: 80px;
+            height: 65px;
             width: auto;
             object-fit: contain;
         }
@@ -120,19 +129,19 @@
         }
 
         .form-area h1 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             color: #0b0b0b;
             line-height: 1.2;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: -0.5px;
         }
 
         .form-area p.subtitle {
-            font-size: 15px;
+            font-size: 14px;
             color: #8e8e8e;
             font-weight: 400;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
         /* ── LABELS ── */
@@ -147,12 +156,12 @@
         /* ── INPUTS ── */
         .input-wrap {
             position: relative;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }
 
         .input-wrap input {
             width: 100%;
-            height: 48px;
+            height: 46px;
             padding: 0 44px 0 16px;
             font-size: 13.5px;
             font-family: 'Poppins', sans-serif;
@@ -201,8 +210,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 4px;
-            margin-bottom: 20px;
+            margin-top: 2px;
+            margin-bottom: 16px;
         }
 
         .check-label {
@@ -259,7 +268,7 @@
         /* ── BUTTONS ── */
         .btn-primary {
             width: 100%;
-            height: 50px;
+            height: 48px;
             background: #f9961f;
             color: #ffffff;
             font-family: 'Poppins', sans-serif;
@@ -270,7 +279,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 3px 8px rgba(249, 150, 31, 0.3);
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }
 
         .btn-primary:hover  {
@@ -331,7 +340,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 6px 0 18px;
+            margin: 4px 0 14px;
             color: #9ca3af;
             font-size: 12.5px;
         }
@@ -350,7 +359,7 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
-            height: 48px;
+            height: 46px;
             background: #ffffff;
             border: 1.2px solid #d1d5db;
             border-radius: 9px;
@@ -361,7 +370,7 @@
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s ease;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
         .btn-google:hover {
