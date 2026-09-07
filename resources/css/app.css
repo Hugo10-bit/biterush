@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+@theme {
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-poppins: 'Poppins', sans-serif;
+    --color-bites-yellow: #FFC72C;
+    --color-bites-yellow-dark: #E8A400;
+    --color-bites-cream: #F8F6F0;
+    --color-bites-red: #D92625;
+    --color-bites-red-dark: #A51B12;
+    --color-bites-black: #0C0C0C;
+}
