@@ -453,7 +453,7 @@
                 <h1>Welcome Back!</h1>
                 <p class="subtitle">Please enter your detail first</p>
 
-                <form method="POST" action="{{ route('login') }}" id="login-form">
+                <form method="POST" action="{{ url('/login') }}" id="login-form">
                     @csrf
 
                     <!-- Username -->
@@ -540,7 +540,7 @@
                 <h1>Create Account</h1>
                 <p class="subtitle">Fill in your details to get started</p>
 
-                <form method="POST" action="{{ route('register') }}" id="register-form">
+                <form method="POST" action="{{ url('/register') }}" id="register-form">
                     @csrf
 
                     <!-- Username -->
