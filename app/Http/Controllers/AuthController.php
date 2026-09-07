@@ -159,9 +159,11 @@ class AuthController extends Controller
 
         try {
             return Socialite::driver('google')
+                ->stateless()
                 ->redirectUrl(url('/auth/google/callback'))
                 ->redirect();
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Google OAuth Redirect Error: ' . $e->getMessage());
             return redirect()->route('login')->withErrors([
                 'username' => 'Gagal mengarahkan ke Google OAuth: ' . $e->getMessage()
             ]);
@@ -175,9 +177,11 @@ class AuthController extends Controller
     {
         try {
             $googleUser = Socialite::driver('google')
+                ->stateless()
                 ->redirectUrl(url('/auth/google/callback'))
                 ->user();
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Google OAuth Callback Error: ' . $e->getMessage());
             return redirect()->route('login')->withErrors([
                 'username' => 'Login Google dibatalkan atau gagal: ' . $e->getMessage()
             ]);
@@ -219,7 +223,7 @@ class AuthController extends Controller
         Auth::login($user, true);
         request()->session()->regenerate();
 
-        return redirect()->intended(route('dashboard'))->with('status', 'Berhasil login dengan akun Google!');
+        return redirect()->route('menu')->with('success', 'Selamat datang, ' . ($user->name ?: $user->username) . '! Berhasil masuk dengan akun Google.');
     }
 
     /**
