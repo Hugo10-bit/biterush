@@ -200,80 +200,7 @@
                         </a>
                     @endauth
 
-                    <!-- Mobile Hamburger Button -->
-                    <button onclick="toggleMobileNav()" id="mobile-menu-btn" type="button" 
-                        class="md:hidden flex items-center justify-center p-2 rounded-xl text-gray-700 hover:text-bites-red hover:bg-red-50/50 transition active:scale-95 focus:outline-none" 
-                        aria-label="Menu Navigasi">
-                        <svg id="hamburger-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                        <svg id="hamburger-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-
                 </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Drawer -->
-        <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-gray-100 bg-white/98 backdrop-blur-lg px-4 pt-3 pb-5 shadow-xl transition-all duration-300">
-            <!-- Mobile Search Bar -->
-            <form action="{{ route('menu') }}" method="GET" class="mb-4">
-                <div class="relative">
-                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari burger, chicken, drinks..."
-                        class="w-full bg-gray-100 text-xs text-gray-800 pl-10 pr-4 py-2.5 rounded-xl focus:bg-white focus:ring-2 focus:ring-bites-orange focus:outline-none transition">
-                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                </div>
-            </form>
-
-            <!-- Navigation Links -->
-            <div class="flex flex-col space-y-1 text-sm font-semibold">
-                <a href="{{ route('menu') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-700 hover:text-bites-red hover:bg-red-50/50 transition">
-                    <span class="text-base">🍔</span>
-                    <span>Menu Makanan</span>
-                </a>
-                @auth
-                    <a href="{{ route('orders.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-700 hover:text-bites-red hover:bg-red-50/50 transition">
-                        <span class="text-base">📦</span>
-                        <span>Pesanan Saya</span>
-                    </a>
-                    @if(Auth::user()->isStaff())
-                        <a href="{{ route('admin.pos') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-amber-700 bg-amber-50 hover:bg-amber-100 transition">
-                            <span class="text-base">💻</span>
-                            <span>POS Kasir</span>
-                        </a>
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-purple-700 bg-purple-50 hover:bg-purple-100 transition">
-                            <span class="text-base">📊</span>
-                            <span>Dashboard Admin</span>
-                        </a>
-                    @endif
-                    <div class="pt-3 mt-2 border-t border-gray-100">
-                        <div class="px-3.5 py-1 text-xs text-gray-500">
-                            Masuk sebagai <strong class="text-gray-900">{{ Auth::user()->name ?: Auth::user()->username }}</strong> ({{ Auth::user()->role }})
-                        </div>
-                        <form action="{{ route('logout') }}" method="POST" onsubmit="return confirmLogout(event)">
-                            @csrf
-                            <button type="submit" class="w-full text-left flex items-center gap-3 px-3.5 py-2 rounded-xl text-red-600 hover:bg-red-50 font-bold transition">
-                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                </svg>
-                                <span>Keluar (Logout)</span>
-                            </button>
-                        </form>
-                    </div>
-                @else
-                    <div class="pt-3 mt-2 border-t border-gray-100 flex gap-2">
-                        <a href="{{ route('login') }}" class="flex-1 text-center bg-gray-900 hover:bg-black text-white text-xs font-semibold py-2.5 rounded-xl transition">
-                            Login / Masuk
-                        </a>
-                        <a href="{{ route('register') }}" class="flex-1 text-center bg-bites-red hover:bg-red-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
-                            Daftar Akun
-                        </a>
-                    </div>
-                @endauth
             </div>
         </div>
     </header>
@@ -874,24 +801,6 @@
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
-        }
-
-        function toggleMobileNav() {
-            const drawer = document.getElementById('mobile-nav-drawer');
-            const iconOpen = document.getElementById('hamburger-icon-open');
-            const iconClose = document.getElementById('hamburger-icon-close');
-            if (!drawer) return;
-
-            const isHidden = drawer.classList.contains('hidden');
-            if (isHidden) {
-                drawer.classList.remove('hidden');
-                if (iconOpen) iconOpen.classList.add('hidden');
-                if (iconClose) iconClose.classList.remove('hidden');
-            } else {
-                drawer.classList.add('hidden');
-                if (iconOpen) iconOpen.classList.remove('hidden');
-                if (iconClose) iconClose.classList.add('hidden');
-            }
         }
 
         function toggleUserDropdown(event) {

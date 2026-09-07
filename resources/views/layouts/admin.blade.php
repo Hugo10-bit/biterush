@@ -74,15 +74,24 @@
 <body class="min-h-full bg-gray-50 text-gray-900 flex antialiased">
     <div id="page-loader-bar"></div>
 
+    <!-- MOBILE SIDEBAR BACKDROP -->
+    <div id="admin-sidebar-backdrop" onclick="toggleAdminSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 hidden md:hidden transition-opacity duration-300"></div>
+
     <!-- SIDEBAR -->
-    <aside class="w-64 bg-bites-dark text-white flex flex-col justify-between hidden md:flex flex-shrink-0 min-h-screen">
+    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-bites-dark text-white flex flex-col justify-between flex-shrink-0 min-h-screen -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:static md:flex shadow-2xl md:shadow-none">
         <div>
-            <!-- Logo -->
-            <div class="p-6 border-b border-white/10">
+            <!-- Logo & Mobile Close Button -->
+            <div class="p-6 border-b border-white/10 flex items-center justify-between">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     <img src="{{ asset('images/logo.png') }}" alt="BiteRush Logo" class="h-9 w-auto">
                     <span class="text-[10px] font-bold bg-amber-500 text-black px-2 py-0.5 rounded">ADMIN</span>
                 </a>
+                <!-- Mobile Close Button -->
+                <button type="button" onclick="toggleAdminSidebar()" class="md:hidden text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition" aria-label="Tutup Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
 
             <!-- Navigation Links -->
@@ -137,16 +146,24 @@
     <!-- MAIN WRAPPER -->
     <div class="flex-1 flex flex-col min-w-0">
         
-        <!-- Top Header for Mobile -->
-        <header class="bg-white border-b border-gray-200 p-4 flex md:hidden items-center justify-between">
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
-                <img src="{{ asset('images/logo.png') }}" alt="BiteRush" class="h-8">
-                <span class="text-[10px] font-bold bg-amber-500 text-black px-2 py-0.5 rounded">ADMIN</span>
-            </a>
-            <div class="flex items-center gap-2 text-xs">
-                <a href="{{ route('admin.pos') }}" class="bg-amber-100 text-amber-900 font-bold px-3 py-1.5 rounded-lg">POS</a>
-                <a href="{{ route('admin.orders') }}" class="bg-gray-100 font-bold px-3 py-1.5 rounded-lg">Kitchen</a>
-                <a href="{{ route('menu') }}" class="bg-gray-900 text-white font-bold px-3 py-1.5 rounded-lg">Menu</a>
+        <!-- Top Header for Mobile with Hamburger Menu -->
+        <header class="bg-white border-b border-gray-200 px-4 py-3 flex md:hidden items-center justify-between sticky top-0 z-30 shadow-xs">
+            <div class="flex items-center gap-2.5">
+                <!-- Hamburger Button to Open Sidebar -->
+                <button type="button" onclick="toggleAdminSidebar()" class="p-2 -ml-1 text-gray-700 hover:text-bites-red hover:bg-gray-100 rounded-xl transition active:scale-95 focus:outline-none" aria-label="Buka Menu Admin">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
+                    <img src="{{ asset('images/logo.png') }}" alt="BiteRush" class="h-7 w-auto">
+                    <span class="text-[10px] font-bold bg-amber-500 text-black px-2 py-0.5 rounded">ADMIN</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs font-semibold">
+                <a href="{{ route('admin.pos') }}" class="bg-amber-100 text-amber-900 px-2.5 py-1.5 rounded-lg hover:bg-amber-200 transition">POS</a>
+                <a href="{{ route('admin.orders') }}" class="bg-gray-100 text-gray-800 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 transition">Kitchen</a>
+                <a href="{{ route('menu') }}" class="bg-gray-900 text-white px-2.5 py-1.5 rounded-lg hover:bg-black transition">Menu</a>
             </div>
         </header>
 
@@ -164,6 +181,23 @@
     </div>
 
     <script>
+        function toggleAdminSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const backdrop = document.getElementById('admin-sidebar-backdrop');
+            if (!sidebar || !backdrop) return;
+
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
         function confirmLogout(event) {
             event.preventDefault();
             const form = event.target.closest('form');
