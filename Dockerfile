@@ -1,12 +1,11 @@
 # ==========================================
 # Stage 1: Build Frontend Assets (Vite)
 # ==========================================
-FROM node:18-alpine AS node_builder
+FROM node:20-bookworm-slim AS node_builder
 WORKDIR /app
 
 COPY package*.json vite.config.js ./
-# Clean install to rebuild native bindings for Linux (avoids Windows binary issues)
-RUN npm cache clean --force && npm install
+RUN npm install --include=optional
 
 COPY resources ./resources
 COPY public ./public
