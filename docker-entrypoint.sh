@@ -27,6 +27,8 @@ php artisan view:cache || true
 if [ -n "$DB_HOST" ] || [ -n "$DB_URL" ]; then
     echo "Checking database connection and running migrations..."
     php artisan migrate --force || echo "Migration skipped or database not ready yet."
+    echo "Seeding initial admin and sample data if needed..."
+    php artisan db:seed --force || echo "Seeding completed or skipped."
 fi
 
 # Ensure only mpm_prefork is enabled in mods-enabled
