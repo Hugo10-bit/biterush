@@ -5,7 +5,8 @@ FROM node:18-alpine AS node_builder
 WORKDIR /app
 
 COPY package*.json vite.config.js ./
-RUN npm ci
+# Clean install to rebuild native bindings for Linux (avoids Windows binary issues)
+RUN npm cache clean --force && npm install
 
 COPY resources ./resources
 COPY public ./public
