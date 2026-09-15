@@ -48,10 +48,7 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Google OAuth Routes
-Route::get('/auth/google', [AuthController::class, 'googleRedirect'])->name('auth.google');
-Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->name('auth.google.callback');
-Route::match(['get', 'post'], '/auth/google/instant', [AuthController::class, 'googleInstantLogin'])->name('auth.google.instant');
+
 
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
