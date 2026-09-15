@@ -27,6 +27,8 @@ php artisan view:cache || true
 if [ -n "$DB_HOST" ] || [ -n "$DB_URL" ]; then
     echo "Checking database connection and running migrations..."
     php artisan migrate --force || echo "Migration skipped or database not ready yet."
+fi
+
 # Ensure only mpm_prefork is enabled in mods-enabled
 rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* 2>/dev/null || true
 ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/mpm_prefork.load 2>/dev/null || true
